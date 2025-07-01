@@ -23,8 +23,8 @@ jobs:
 
       - name: Start Vite + Nodemon and run tests
         run: |
-          nohup npm run dev > vite.log 2>&1 &
-          nohup npx nodemon index.js > nodemon.log 2>&1 &
+          npm run dev > vite.log 2>&1 &
+          npx nodemon index.js > nodemon.log 2>&1 &
           sleep 5
           cd test
           npx codeceptjs run
