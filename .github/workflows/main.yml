@@ -10,6 +10,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: cd /test/
-      - run: npm install
-      - run: npx codeceptjs run
+      - run: | 
+         cd /test/
+         npm install
+         npx codeceptjs run
