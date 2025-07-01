@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install root dependencies
+      - name: Install root dependencies (Vite, Nodemon)
         run: npm install
 
       - name: Install test dependencies
@@ -21,9 +21,10 @@ jobs:
           cd test
           npm install
 
-      - name: Start Vite and run tests
+      - name: Start Vite + Nodemon and run tests
         run: |
           nohup npm run dev > vite.log 2>&1 &
+          nohup npx nodemon index.js > nodemon.log 2>&1 &
           sleep 5
           cd test
           npx codeceptjs run
