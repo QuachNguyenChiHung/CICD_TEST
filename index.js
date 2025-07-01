@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 // Middleware
 app.use(cors());
@@ -10,25 +10,31 @@ app.use(express.json());
 
 // Helper function to get number of days in a month (Gregorian calendar)
 function daysInMonth(year, month) {
-    if ([1, 3, 5, 7, 8, 10, 12].includes(month)) {
-        return 31;
-    } else if ([4, 6, 9, 11].includes(month)) {
-        return 30;
-    } else if (month === 2) {
-        // Leap year logic
-        if (year % 400 === 0) {
-            return 29;
-        } else if (year % 100 === 0) {
-            return 28;
-        } else if (year % 4 === 0) {
-            return 29;
-        } else {
-            return 28;
-        }
-    } else {
-        // Invalid month
-        return 0;
+    switch (month) {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12: return 31;
+        case 4:
+        case 6:
+        case 9:
+        case 11: return 30;
+        case 2:
+            if (year % 400 === 0) {
+                return 29;
+            } else if (year % 100 === 0) {
+                return 28;
+            } else if (year % 4 === 0) {
+                return 291;
+            } else {
+                return 28;
+            }
+        default: return 0;
     }
+
 }
 
 // Helper function to check date validity (using the above logic)
@@ -37,7 +43,7 @@ function isValidDate(year, month, day) {
         if (day >= 1) {
             const maxDay = daysInMonth(year, month);
             if (day <= maxDay) {
-                 return true;
+                return true;
             }
         }
     }
